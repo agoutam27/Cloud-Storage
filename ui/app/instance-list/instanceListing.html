@@ -1,4 +1,8 @@
 <div>
-Instance Listing
-
+    <select ng-model='vm.selectedInstance'>
+        <option ng-value='0'>Select instance</option>
+        <option ng-repeat='instanceObj in vm.instanceList' ng-value='instanceObj.id'>{{instanceObj.name}}</option>
+    </select>
+    <button ng-click='vm.openInstanceFolders(vm.selectedInstance)'>Open Instance</button>
 </div>
+<div ui-view></div>

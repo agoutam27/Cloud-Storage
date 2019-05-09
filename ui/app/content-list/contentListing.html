@@ -1,3 +1,10 @@
 <div>
-    Content listing
+
+    <div ng-repeat='contentObj in vm.contentList' ng-click='vm.open(contentObj)'>
+
+        <div>TYPE:&nbsp;&nbsp;{{contentObj.directory ? 'Folder' : 'File'}}</div>
+        <div>NAME:&nbsp;&nbsp;{{contentObj.name}}</div>
+
+    </div>
+
 </div>
