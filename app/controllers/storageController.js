@@ -4,9 +4,9 @@ import ENDPOINT from './../Constants/endpoints';
 import responder from '../../lib/expressResponder';
 import errorHandler from '../handlers/errorHandler';
 import logger from './../../lib/logger';
-import multiparty from 'multiparty';
+// import multiparty from 'multiparty';
 
-const form = new multiparty.Form();
+// const form = new multiparty.Form();
 const BASE_URL = ENDPOINT.BASE_URL + ENDPOINT.URL_SEPARATOR + ENDPOINT.COMP_URL;
 
 const rqComp = new requestHelper(BASE_URL);
@@ -94,14 +94,8 @@ class StorageController {
             path: req.query.path,
             chunkedUpload: req.query.chunkedUpload
         }
-        form.parse(req, (err, fields, file) => {
-            logger.debug(`Request body = `, file);
-            request(rqComp.postParams(ENDPOINT.FILES, , queryParams, headers),
-            (err, result, body) => {
-                // logger.debug("-------", err, result, body);
-                responder.success(res, 'dine')
-            });
-        })
+        
+        req.pipe(request(rqComp._getURL(ENDPOINT.FILES, queryParams))).pipe(res);
 
     }
 
