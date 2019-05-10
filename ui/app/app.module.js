@@ -49,7 +49,7 @@
                 templateUrl: '/content-list/contentListing.html',
                 controller: 'ContentListingCtrl',
                 controllerAs: 'vm',
-                // params: {instanceId: 0},
+                params: {instanceId: 0},
                 cache: false
             });
         

@@ -8,7 +8,7 @@
         function instanceCtrl($rootScope, $scope, $http, $state, URL) {
             var vm = this;
             vm.instanceList = [];
-            vm.selectedInstance = 0;
+            vm.selectedInstance = null;
 
             getInstanceList();
 
@@ -23,7 +23,6 @@
                     },
                     headers: {
                         authorization: `User ${$rootScope.userToken}, Organization ${$rootScope.orgToken}`
-                        // authorization: 'User 3uOjRhMp+fXCSOY8Qzo82zfRFuPW1/JIjo4l2S9b+NQ=, Organization 58b4f6b5bf0d8532623b9710a8a88493'
                     }
                 };
                 $http(options)
@@ -55,7 +54,8 @@
                 $rootScope.instanceToken = selectedInstance.token;
                 $state.go('main.contents', {
                     instance: selectedInstance.element.name, 
-                    path: ''
+                    path: '',
+                    instanceId: selectedInstance.id
                 });
 
             }

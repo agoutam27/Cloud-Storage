@@ -11,7 +11,7 @@
         vm.contentList = [];
         vm.file = null;
         vm.dragAndDrop = false;
-        // $scope.$parent.vm.selectedInstance = $state.params.instanceId;
+        $scope.$parent.vm.selectedInstance = $state.params.instanceId;
 
         getFolderContent();
 
@@ -34,7 +34,6 @@
                 headers: {
                     'Content-Type': undefined, // important to upload file , browser will automatically set it
                     authorization: `User ${$rootScope.userToken}, Organization ${$rootScope.orgToken}, Element ${$rootScope.instanceToken}`
-                    // authorization: 'User 3uOjRhMp+fXCSOY8Qzo82zfRFuPW1/JIjo4l2S9b+NQ=, Organization 58b4f6b5bf0d8532623b9710a8a88493, Element ' + $rootScope.instanceToken
                 },
                 data: formData
             }
@@ -47,7 +46,7 @@
         }
 
         function getFolderContent() {
-            // $scope.$parent.vm.throbber = true;
+            $scope.$parent.vm.throbber = true;
             var param = {
                 url: URL.SERVER_BASE_URL + URL.FOLDER_CONTENT,
                 params: {
@@ -65,7 +64,7 @@
                     }
                     vm.contentList = res.data;
                     vm.dragAndDrop = true;
-                    // $scope.$parent.vm.throbber = false;
+                    $scope.$parent.vm.throbber = false;
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -87,7 +86,7 @@
                 },
                 method: 'GET',
                 headers: {
-                    authorization: 'User 3uOjRhMp+fXCSOY8Qzo82zfRFuPW1/JIjo4l2S9b+NQ=, Organization 58b4f6b5bf0d8532623b9710a8a88493, Element ' + $rootScope.instanceToken
+                    authorization: `User ${$rootScope.userToken}, Organization ${$rootScope.orgToken}, Element ${$rootScope.instanceToken}`
                 }
             }
             $http(param)
@@ -112,11 +111,11 @@
 
         vm.open = function (contentObj) {
             if (contentObj.directory) {
-                // $state.go('main.content', {path: contentObj.path, instance: $state.params.instance}, {reload: true});
-                // $state.reload();
+
                 $state.transitionTo($state.current, {
                     path: contentObj.path,
-                    instance: $state.params.instance
+                    instance: $state.params.instance,
+                    instanceId: $state.params.instanceId
                 }, {
                     reload: true,
                     inherit: true,

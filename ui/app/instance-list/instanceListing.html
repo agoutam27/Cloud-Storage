@@ -2,9 +2,9 @@
 
 <div class="form-inline row">
     <label for="instancelist"></label>
-    <select id="instancelist" class="form-control col-8" ng-model='vm.selectedInstance'>
-        <option ng-value='0'>Select instance</option>
-        <option ng-repeat='instanceObj in vm.instanceList' ng-value='instanceObj.id'>{{instanceObj.name}}</option>
+    <select id="instancelist" class="form-control col-8" ng-model='vm.selectedInstance'
+        ng-options="+(instanceObj.id) as instanceObj.name for instanceObj in vm.instanceList">
+        <option value="" selected>Select instance</option>
     </select>
     <button class="btn btn-primary" ng-click='vm.openInstanceFolders(vm.selectedInstance)'>Open Instance</button>
 </div>
@@ -12,4 +12,4 @@
 <div ng-if="vm.throbber" class="spinner-border" role="status" style="margin-top: 25px">
     <span class="sr-only">Loading...</span>
 </div>
-<div ng-if="!vm.throbber" style="margin-top: 20px;" ui-view></div>
+<div ng-hide="vm.throbber" style="margin-top: 20px;" ui-view></div>
