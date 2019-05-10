@@ -13,8 +13,9 @@
         <link rel="stylesheet" href="app.css" />
 
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.22/angular-ui-router.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-cookies.min.js"></script>
         <script src="app.module.js"></script>
         <script src="utils/constants.js"></script>
         <script src="instance-list/instanceListing.ctrl.js"></script>
@@ -26,9 +27,8 @@
 
     </head>
 
-    <body ng-app="cloudStorageApp">
-        <!-- <a ui-sref="main">Instances</a> -->
-        
+    <body ng-app="cloudStorageApp" class="container">
+        <h1>Welcome to Cloud Storage App</h1>
         <ui-view></ui-view>
     </body>
 </html>

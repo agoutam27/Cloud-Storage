@@ -3,14 +3,23 @@
 
     // Define the `cloudStorageApp` module
     var myApp = angular.module('cloudStorageApp', [
-        'ui.router'
+        'ui.router',
+        'ngCookies'
     ]);
     
-    myApp.run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
+    myApp.run(['$rootScope', '$state', '$cookies', function($rootScope, $state, $cookies) {
 
         if(!$rootScope.userToken || !$rootScope.orgToken) {
-            $state.go('login');
-            return;
+
+            var userToken = $cookies.get('userToken'),
+                orgToken = $cookies.get('orgToken');
+
+            if(!userToken || !orgToken) {
+                $state.go('login');
+                return;
+            }
+            $rootScope.userToken = userToken;
+            $rootScope.orgToken = orgToken;
         }
         $state.go('main');
     
@@ -40,6 +49,7 @@
                 templateUrl: '/content-list/contentListing.html',
                 controller: 'ContentListingCtrl',
                 controllerAs: 'vm',
+                // params: {instanceId: 0},
                 cache: false
             });
         

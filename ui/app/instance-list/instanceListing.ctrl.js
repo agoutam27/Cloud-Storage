@@ -13,6 +13,7 @@
             getInstanceList();
 
             function getInstanceList() {
+                vm.throbber = true;
                 // TODO: Move this param to some utility service and fetch when needed
                 var options = {
                     url: `${URL.BASE_URL}${URL.API_V_URL}${URL.INSTANCE_URL}`,
@@ -32,12 +33,14 @@
                             throw new Error("No data");
                         }
                         vm.instanceList = res.data;
+                        vm.throbber = false;
                     })
                     .catch(function (err) {
                         vm.instanceList = null;
                         if(+err.status === 401) {
                             $state.go('login', {errorMsg: 'Incorrect user or organization tokens'});
                         }
+                        vm.throbber = false;
                     });
             }
 
@@ -50,7 +53,10 @@
                     return instance.id === selectedInstanceId;
                 });
                 $rootScope.instanceToken = selectedInstance.token;
-                $state.go('main.contents', {instance: selectedInstance.element.name, path: ''});
+                $state.go('main.contents', {
+                    instance: selectedInstance.element.name, 
+                    path: ''
+                });
 
             }
         }

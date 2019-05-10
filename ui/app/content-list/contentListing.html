@@ -1,14 +1,26 @@
-<div>
 
-    <div class="btn btn-lg btn-info" ng-repeat='contentObj in vm.contentList' ng-click='vm.open(contentObj)'>
+<div class="row">
 
-        <span class="oi" ng-class="vm.getClass(contentObj)"></span>
-        <div>{{contentObj.name}}</div>
+    <div ng-if="!vm.contentList.length" class="alert alert-info">No Content</div>
 
+    <div class="col-md-3" 
+        ng-repeat='contentObj in vm.contentList' 
+        ng-click='vm.open(contentObj)'
+        ng-if="vm.contentList">
+        <div class="card" >
+
+            <span class="oi" ng-class="vm.getClass(contentObj)" style="top: 16px;"></span>
+            <h6 class="card-title" style="padding-left: 25px">{{contentObj.name}}</h6>
+
+        </div>
     </div>
 
 </div>
 
-<div file-dropzone file="vm.file", style="width: 150px; height: 150px; border: 1px solid">
-  <span>Drop File Here</span>
+
+<div ng-show="vm.dragAndDrop" class="form-control-file text-center col-md-7" 
+    data-title="Drag and Drop File Here" file-dropzone file="vm.file" 
+    style="margin-top: 25px; margin-left: auto; margin-right: auto;"
+    >
+  
 </div>
