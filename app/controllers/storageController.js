@@ -2,11 +2,8 @@ import request from 'request';
 import requestHelper from '../../lib/requestHelper';
 import ENDPOINT from './../Constants/endpoints';
 import responder from '../../lib/expressResponder';
-import errorHandler from '../handlers/errorHandler';
 import logger from './../../lib/logger';
-// import multiparty from 'multiparty';
 
-// const form = new multiparty.Form();
 const BASE_URL = ENDPOINT.BASE_URL + ENDPOINT.URL_SEPARATOR + ENDPOINT.COMP_URL;
 
 const rqComp = new requestHelper(BASE_URL);
@@ -14,12 +11,6 @@ const rqComp = new requestHelper(BASE_URL);
 class StorageController {
 
     static getFolderContent(req, res, next) {
-
-        if(!req.headers.authorization) {
-            logger.debug(`\n\nHeaders`, req.headers);
-            errorHandler.sendError(res, 401);
-            return;
-        }
 
         if(!req.query.path) {
             responder.operationFailed(res, "unspecified path");
@@ -51,11 +42,6 @@ class StorageController {
     }
 
     static getFile(req, res, next) {
-        if(!req.headers.authorization) {
-            logger.debug(`\n\nHeaders`, req.headers);
-            errorHandler.sendError(res, 401);
-            return;
-        }
 
         if(!req.query.path) {
             responder.operationFailed(res, "unspecified path");
@@ -74,20 +60,10 @@ class StorageController {
     }
 
     static uploadFile(req, res, next) {
-        if(!req.headers.authorization) {
-            logger.debug(`\n\nHeaders`, req.headers);
-            errorHandler.sendError(res, 401);
-            return;
-        }
 
         if(!req.query.path) {
             responder.operationFailed(res, "unspecified path");
             return;
-        }
-
-        const headers = {
-            Authorization: req.headers.authorization,
-            'Content-type': 'multipart/form-data'
         }
 
         const queryParams = {
