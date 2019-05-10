@@ -1,3 +1,5 @@
+<!doctype html>
+
 <html>
     <head>
         
@@ -6,7 +8,8 @@
         <meta charset="utf-8">
         <title>Cloud Storage</title>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-css/1.4.6/select2-bootstrap.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
         <link rel="stylesheet" href="app.css" />
 
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
@@ -16,11 +19,16 @@
         <script src="utils/constants.js"></script>
         <script src="instance-list/instanceListing.ctrl.js"></script>
         <script src="content-list/contentListing.ctrl.js"></script>
+        <script src="login/login.ctrl.js"></script>
+        <script src="utils/download.js"></script>
+        <script src="utils/fileUpload.directive.js"></script>
+
 
     </head>
 
     <body ng-app="cloudStorageApp">
-        <a ui-sref="main">Instances</a>
+        <!-- <a ui-sref="main">Instances</a> -->
+        
         <ui-view></ui-view>
     </body>
 </html>

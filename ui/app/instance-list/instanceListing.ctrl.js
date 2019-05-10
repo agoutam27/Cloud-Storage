@@ -13,6 +13,7 @@
             getInstanceList();
 
             function getInstanceList() {
+                // TODO: Move this param to some utility service and fetch when needed
                 var options = {
                     url: `${URL.BASE_URL}${URL.API_V_URL}${URL.INSTANCE_URL}`,
                     method: 'GET',
@@ -20,7 +21,8 @@
                         hydrate: false
                     },
                     headers: {
-                        authorization: 'User 3uOjRhMp+fXCSOY8Qzo82zfRFuPW1/JIjo4l2S9b+NQ=, Organization 58b4f6b5bf0d8532623b9710a8a88493'
+                        authorization: `User ${$rootScope.userToken}, Organization ${$rootScope.orgToken}`
+                        // authorization: 'User 3uOjRhMp+fXCSOY8Qzo82zfRFuPW1/JIjo4l2S9b+NQ=, Organization 58b4f6b5bf0d8532623b9710a8a88493'
                     }
                 };
                 $http(options)
@@ -33,6 +35,9 @@
                     })
                     .catch(function (err) {
                         vm.instanceList = null;
+                        if(+err.status === 401) {
+                            $state.go('login', {errorMsg: 'Incorrect user or organization tokens'});
+                        }
                     });
             }
 

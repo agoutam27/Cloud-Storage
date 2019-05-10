@@ -1,0 +1,21 @@
+<div>
+
+    <h1>Welcome to Cloud Storage App</h1>
+
+    <br />
+
+    <div ng-show="vm.errorMsg">{{vm.errorMsg}}</div>
+
+    <div>
+        <label for="userToken">Enter your user token</label>
+        <input id="usertoken" type="text" ng-model='vm.userToken' />
+    </div>
+
+    <div>
+        <label for="orgtoken">Enter your organization token</label>
+        <input id="orgtoken" type="text" ng-model='vm.orgToken' />
+    </div>
+
+    <button class="btn" ng-click='vm.browse()'>Browse</button>
+
+</div>
