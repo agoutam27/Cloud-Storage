@@ -8,11 +8,14 @@
     function contentListCtrl($rootScope, $scope, $http, $state, URL) {
         var vm = this;
 
-        vm.contentList = [];
+        vm.contentList = null;
         vm.file = null;
         vm.dragAndDrop = false;
+        vm.breadcrumbItems = [$state.params.instance];
+
         $scope.$parent.vm.selectedInstance = $state.params.instanceId;
 
+        createBreadCrumb($state.params.path);
         getFolderContent();
 
         $scope.$watch('vm.file', function (newVal, oldVal) {
@@ -20,6 +23,13 @@
                 uploadFile(newVal);
             }
         });
+
+        function createBreadCrumb(path) {
+            if(path) {
+                var arr = path.split('/');
+                vm.breadcrumbItems = vm.breadcrumbItems.concat(arr[0] ? arr : arr.splice(1));
+            }
+        }
 
         function uploadFile(file) {
             // TODO: Move these option to utility service and fetch when needed
@@ -47,6 +57,7 @@
 
         function getFolderContent() {
             $scope.$parent.vm.throbber = true;
+            vm.contentList = null;
             var param = {
                 url: URL.SERVER_BASE_URL + URL.FOLDER_CONTENT,
                 params: {
@@ -64,6 +75,11 @@
                     }
                     vm.contentList = res.data;
                     vm.dragAndDrop = true;
+                    try {
+                        $scope.$digest();
+                    } catch(err) {
+                        console.log('Digest in progress');
+                    }
                     $scope.$parent.vm.throbber = false;
                 })
                 .catch(function (err) {
@@ -124,6 +140,21 @@
                 return;
             }
             downloadFile(contentObj.path, contentObj.properties.mimeType);
+        }
+
+        vm.goToPath = function (index) {
+            vm.breadcrumbItems = vm.breadcrumbItems.splice(0, index+1);
+            var pathStr = index === 0 ? "" : vm.breadcrumbItems.join("/");
+            $state.transitionTo($state.current, {
+                path: pathStr,
+                instance: $state.params.instance,
+                instanceId: $state.params.instanceId
+            }, {
+                reload: true,
+                inherit: true,
+                notify: true
+            });
+            return;
         }
     }
 

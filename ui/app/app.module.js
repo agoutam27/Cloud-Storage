@@ -9,6 +9,12 @@
     
     myApp.run(['$rootScope', '$state', '$cookies', function($rootScope, $state, $cookies) {
 
+        if($state.params.logout) {
+            $state.go('login');
+            return;
+        }
+        $rootScope.isLoginState = false;
+
         if(!$rootScope.userToken || !$rootScope.orgToken) {
 
             var userToken = $cookies.get('userToken'),
@@ -36,7 +42,7 @@
                 templateUrl: '/login/login.html',
                 controller: 'LoginCtrl',
                 controllerAs: 'vm',
-                params: { errorMsg: null }
+                params: { errorMsg: null, logout: false }
             })
             .state('main', {
                 url: '/instances',

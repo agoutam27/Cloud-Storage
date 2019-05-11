@@ -8,9 +8,15 @@
 
         function loginCtrl($rootScope, $scope, $state, $cookies) {
             var vm = this;
-            
+
             vm.userToken = vm.orgToken = null;
-            vm.errorMsg = $state.errorMsg;
+            vm.errorMsg = $state.params.errorMsg;
+            $rootScope.isLoginState = true;
+
+            if($state.params.logout) {
+                $cookies.remove('userToken');
+                $cookies.remove('orgToken');
+            }
 
             vm.browse = function () {
                 $rootScope.userToken = vm.userToken;
