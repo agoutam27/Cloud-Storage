@@ -1,0 +1,37 @@
+
+<div class="row">
+    <nav aria-label="breadcrumb" ng-show="!$parent.vm.throbber">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" ng-repeat="item in vm.breadcrumbItems track by $index" ng-if="$index !== vm.breadcrumbItems.length-1">
+                <a href="#" ng-click="vm.goToPath($index)">{{item}}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{vm.breadcrumbItems[vm.breadcrumbItems.length-1]}}</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row">
+
+    <div ng-if="vm.contentList && vm.contentList.length === 0 && !$parent.vm.throbber" class="alert alert-info col-md-8">No Content</div>
+
+    <div class="col-md-3" 
+        ng-repeat='contentObj in vm.contentList' 
+        ng-click='vm.open(contentObj)'
+        ng-if="vm.contentList">
+        <div class="card" >
+
+            <span class="oi" ng-class="vm.getClass(contentObj)" style="top: 16px;"></span>
+            <h6 class="card-title" style="padding-left: 25px">{{contentObj.name}}</h6>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div ng-show="vm.dragAndDrop" class="form-control-file text-center col-md-7" 
+    data-title="Drag and Drop File Here" file-dropzone file="vm.file" 
+    style="margin-top: 25px; margin-left: auto; margin-right: auto;"
+    >
+  
+</div>
