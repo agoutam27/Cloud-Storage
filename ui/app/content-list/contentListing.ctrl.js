@@ -11,6 +11,7 @@
         vm.contentList = null;
         vm.file = null;
         vm.dragAndDrop = false;
+        vm.uploadMsg = null;
         vm.breadcrumbItems = [$state.params.instance];
 
         $scope.$parent.vm.selectedInstance = $state.params.instanceId;
@@ -33,6 +34,8 @@
 
         function uploadFile(file) {
             // TODO: Move these option to utility service and fetch when needed
+            vm.uploadMsg = "File upload in progress";
+            vm.uploadInfoCls = "alert-primary";
             var formData = new FormData();
             formData.append('file', file);
             var options = {
@@ -51,8 +54,14 @@
             $http(options)
                 .then(function (res) {
                     console.log(res);
+                    vm.uploadMsg = "File Upload Successfull";
+                    vm.uploadInfoCls = "alert-success";
+
                 })
-                .catch(console.error);
+                .catch(function (err) {
+                    vm.uploadMsg = "File Upload Unsuccessful";
+                    vm.uploadInfoCls = "alert-danger";
+                });
         }
 
         function getFolderContent() {
