@@ -21,7 +21,7 @@
 
         $scope.$watch('vm.file', function (newVal, oldVal) {
             if (newVal) {
-                uploadFile(newVal);
+                uploadFile();
             }
         });
 
@@ -32,12 +32,12 @@
             }
         }
 
-        function uploadFile(file) {
+        function uploadFile() {
             // TODO: Move these option to utility service and fetch when needed
             vm.uploadMsg = "File upload in progress";
-            vm.uploadInfoCls = "alert-primary";
+            vm.uploadInfoCls = "alert-primary show";
             var formData = new FormData();
-            formData.append('file', file);
+            formData.append('file', vm.file);
             var options = {
                 method: 'POST',
                 url: URL.SERVER_BASE_URL + URL.FILES,
@@ -50,17 +50,18 @@
                 },
                 data: formData
             }
+            vm.file = null;
 
             $http(options)
                 .then(function (res) {
                     console.log(res);
                     vm.uploadMsg = "File Upload Successfull";
-                    vm.uploadInfoCls = "alert-success";
+                    vm.uploadInfoCls = "alert-success fade";
 
                 })
                 .catch(function (err) {
                     vm.uploadMsg = "File Upload Unsuccessful";
-                    vm.uploadInfoCls = "alert-danger";
+                    vm.uploadInfoCls = "alert-danger my-fade";
                 });
         }
 

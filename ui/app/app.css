@@ -54,3 +54,7 @@
     height: 1rem;
     border-width: 0.2em;
 }
+.my-fade {
+    opacity: 0;
+    transition: opacity 4s linear;
+}
